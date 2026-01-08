@@ -61,3 +61,27 @@ h1, h2, h3, h4, .h1, .h2, .h3, .h4 {
 .logo{
   width: 50px;
 }
+
+/* Header */
+.header{
+  background-image: url(https://img.freepik.com/foto-gratuito/sfondo-di-iperspazio-3d-con-effetto-tunnel-di-curvatura_1048-12526.jpg?semt=ais_hybrid&w=740&q=80);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.btn-custom{
+  color: var(--yellow);
+  background-color: var(--black);
+  border: 2px solid var(--yellow);
+  border-radius: 50px;
+  margin: 0px 15px;
+  padding: 20px 30px;
+  transition: 0.5s;
+}
+
+.btn-custom:hover{
+  color: var(--black);
+  background-color: var(--yellow);
+  transform: scale(1.1);
+}
