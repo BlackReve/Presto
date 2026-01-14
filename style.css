@@ -89,5 +89,19 @@ h1, h2, h3, h4, .h1, .h2, .h3, .h4 {
 /* Positioned */
 .positioned{
   position: relative;
-  top: -100px;
+  top: -150px;
+}
+
+.col-custom{
+  padding: 10px;
+  border: 2px solid var(--black);
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+.col-custom:hover{
+  transform: scale(1.1);
+  background-color: var(--black);
+  color: var(--red);
+  border: 2px solid var(--red);
 }
