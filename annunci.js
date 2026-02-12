@@ -61,8 +61,9 @@ fetch('./annunci.json').then((response) => response.json()).then((data) => {
 
     }
 
-    function showCards(){
-        data.forEach( (annuncio)=> {
+    function showCards(array){
+        cardWrapper.innerHTML = '';
+        array.forEach( (annuncio)=> {
             let div = document.createElement('div');
             div.classList.add('card-custom');
             div.innerHTML = `
@@ -71,9 +72,32 @@ fetch('./annunci.json').then((response) => response.json()).then((data) => {
                 <p class="h5">${annuncio.price} €</p>
             `;
             cardWrapper.appendChild(div);
-        } )
+        } );
     }
 
-    showCards();
+    showCards(data);
 
-})
+  
+    function filterByCategory(categoria) {
+        // In questa funzione ho bisogno di ottenere un nuovo array partendo da data e gli elementi del nuovo array dovranno soddisfare la condizione per la quale la loro category sia uguale alla categoria che stiamo passando alla funzione
+        if(categoria != 'all'){
+        let filtered = data.filter( (annuncio)=> annuncio.category == categoria );
+            showCards(filtered);
+    } else {
+        showCards(data);
+
+    }
+
+}
+
+      let radioButtons = document.querySelectorAll('.form-check-input');
+
+      radioButtons.forEach( (button)=> {
+        button.addEventListener( 'click', ()=>{
+            filterByCategory(button.id);
+
+        
+        });
+      });
+    });
+    
