@@ -12,10 +12,12 @@
 
 
 fetch('./annunci.json').then((response) => response.json()).then((data) => {
-    console.log(data);
+    data.sort( (a, b)=> a.price - b.price );
 
     let radioWrapper = document.querySelector('#radioWrapper');
     let cardWrapper = document.querySelector('#cardWrapper');
+
+    
 
     function radioCreate() {
         let categories = data.map((annuncio) => annuncio.category);
@@ -99,5 +101,44 @@ fetch('./annunci.json').then((response) => response.json()).then((data) => {
         
         });
       });
+
+      let priceInput = document.querySelector('#priceInput');
+      let priceValue = document.querySelector('#priceValue');
+      function setPriceInput(){
+
+        // Dopo aver catturato l'input voglio settare come proprietà max dello stesso il valore più alto tra i price di ogni prodotto per farlo avrò quindi bisogno di un array che contenga solo i prezzi, a quel punto lo ordino in maniera crescente/decrescente e prendo l'elemento con il valore più alto.
+
+        let prices = data.map( (annuncio)=> +annuncio.price ); // il "+" fa convertire il tipo di dato in dato di tipo number
+        prices.sort( (a, b)=> a - b );
+        let maxPrice = Math.ceil(prices.pop());
+        priceInput.max = maxPrice;
+        priceInput.value = maxPrice;
+        priceValue.innerHTML = maxPrice;
+        
+      }
+
+      setPriceInput();
+
+      function filterByPrice(){
+        let filtered = data.filter( (annuncio)=> +annuncio.price <= priceInput.value );
+        showCards(filtered);
+        
+      }
+
+      priceInput.addEventListener( 'input' , ()=>{
+        priceValue.innerHTML = priceInput.value;
+        filterByPrice();
+      } )
+
+      let wordInput = document.querySelector('#wordInput');
+      function filterByWord(parola){
+        let filtered = data.filter( (annuncio)=> annuncio.name.toLowerCase().includes(parola.toLowerCase()) );
+        showCards(filtered);
+        
+      }
+
+      wordInput.addEventListener('input', ()=>{
+        filterByWord(wordInput.value);
+      })
     });
     
