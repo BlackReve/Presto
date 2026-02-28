@@ -17,6 +17,8 @@ teacher.forEach( (docente)=> {
 });
 
 let moveDivs = document.querySelectorAll('.moved');
+let flipCard = document.querySelector('.flip-card');
+let cardWrapper = document.querySelector('#cardWrapper');
 
 let check = false;
 
@@ -34,5 +36,37 @@ opener.addEventListener('click', ()=> {
     moveDivs.forEach((moved, i)=> {
         moved.style.transform = '';
     });
+    cardWrapper.innerHTML = '';
    }
 });
+
+
+let cardName = document.querySelector('#cardName');
+let cardDescription = document.querySelector('#cardDescription');
+
+
+
+moveDivs.forEach( (moved, i)=> {
+    moved.addEventListener( 'click', ()=>{
+        flipCard.classList.remove('d-none');
+        let docente = teacher[i];
+        cardWrapper.innerHTML = '';
+        let div = document.createElement('div');
+        div.classList.add('flip-card');
+        div.innerHTML = `
+        <div class="inner">
+                    <div class="inner-face"></div>
+                    <div class="inner-back">
+                        <p id="cardName" class="h4">${docente.name}</p>
+                        <p id="cardDescription" class="lead">${docente.description}</p>
+                    </div>
+                </div>
+        `;
+
+        cardWrapper.appendChild(div);
+        let innerFace = document.querySelector('.inner-face');
+        innerFace.style.backgroundImage = `url(${docente.url})`;
+        
+
+    })
+} )
